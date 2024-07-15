@@ -1,4 +1,4 @@
-package io.chrono.interchange.global.error.exception;
+package io.chrono.interchange.global.error.exception.setup;
 
 public class InvalidSetupException extends RuntimeException {
 

@@ -1,7 +1,5 @@
 package io.chrono.interchange.global.constant;
 
-import java.time.format.DateTimeFormatter;
-
 public enum ExpressionUnit {
 
     AFGHANISTAN("dd-MM-yyyy", "HH:mm", "dd-MM-yyyy HH:mm"),
@@ -139,6 +137,7 @@ public enum ExpressionUnit {
     POLAND("dd-MM-yyyy", "HH:mm", "dd-MM-yyyy HH:mm"),
     PORTUGAL("dd-MM-yyyy", "HH:mm", "dd-MM-yyyy HH:mm"),
     QATAR("dd-MM-yyyy", "HH:mm", "dd-MM-yyyy HH:mm"),
+    REPUBLIC_OF_KOREA("yyyy.MM.dd", "HH:mm", "yyyy.MM.dd HH:mm"),
     ROMANIA("dd-MM-yyyy", "HH:mm", "dd-MM-yyyy HH:mm"),
     RUSSIA_MOSCOW("dd-MM-yyyy", "HH:mm", "dd-MM-yyyy HH:mm"),
     RWANDA("dd-MM-yyyy", "HH:mm", "dd-MM-yyyy HH:mm"),
@@ -159,7 +158,6 @@ public enum ExpressionUnit {
     SOLOMON_ISLANDS("dd-MM-yyyy", "HH:mm", "dd-MM-yyyy HH:mm"),
     SOMALIA("dd-MM-yyyy", "HH:mm", "dd-MM-yyyy HH:mm"),
     SOUTH_AFRICA("dd-MM-yyyy", "HH:mm", "dd-MM-yyyy HH:mm"),
-    SOUTH_KOREA("yyyy.MM.dd", "HH:mm", "yyyy.MM.dd HH:mm"),
     SOUTH_SUDAN("dd-MM-yyyy", "HH:mm", "dd-MM-yyyy HH:mm"),
     SPAIN("dd-MM-yyyy", "HH:mm", "dd-MM-yyyy HH:mm"),
     SRI_LANKA("dd-MM-yyyy", "HH:mm", "dd-MM-yyyy HH:mm"),
@@ -199,25 +197,25 @@ public enum ExpressionUnit {
     ZAMBIA("dd-MM-yyyy", "HH:mm", "dd-MM-yyyy HH:mm"),
     ZIMBABWE("dd-MM-yyyy", "HH:mm", "dd-MM-yyyy HH:mm");
 
-    private final String dateFormatter;
-    private final String timeFormatter;
-    private final String dateTimeFormatter;
+    private final String dateFormat;
+    private final String timeFormat;
+    private final String dateTimeFormat;
 
     ExpressionUnit(String dateFormat, String timeFormat, String dateTimeFormat) {
-        this.dateFormatter = dateFormat;
-        this.timeFormatter = timeFormat;
-        this.dateTimeFormatter = dateTimeFormat;
+        this.dateFormat = dateFormat;
+        this.timeFormat = timeFormat;
+        this.dateTimeFormat = dateTimeFormat;
     }
 
-    public String getDateFormatter() {
-        return dateFormatter;
+    public String getDateFormat() {
+        return dateFormat;
     }
 
-    public String getTimeFormatter() {
-        return timeFormatter;
+    public String getTimeFormat() {
+        return timeFormat;
     }
 
-    public String getDateTimeFormatter() {
-        return dateTimeFormatter;
+    public String getDateTimeFormat() {
+        return dateTimeFormat;
     }
 }

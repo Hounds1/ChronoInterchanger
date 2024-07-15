@@ -5,7 +5,7 @@ import io.chrono.interchange.global.constant.Region;
 import io.chrono.interchange.global.context.core.ChronoInterchangeContext;
 import io.chrono.interchange.global.context.holder.ChronoInterchangeContextHolder;
 import io.chrono.interchange.global.context.utils.ContextValidator;
-import io.chrono.interchange.global.error.exception.InvalidSetupException;
+import io.chrono.interchange.global.error.exception.setup.InvalidSetupException;
 import io.chrono.interchange.global.error.message.ChronoInterChangeErrorMessage;
 
 public class ChronoInterchangeInitializer {
