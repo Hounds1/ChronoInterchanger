@@ -2,7 +2,7 @@ package io.chrono.interchange.global.context.configurer.locale;
 
 public class AutoLocaleConfigurer {
 
-    private boolean useAutoLocale;
+    private boolean useAutoLocale = false;
 
     public AutoLocaleConfigurer setUseAutoLocale(boolean useAutoLocale) {
         this.useAutoLocale = useAutoLocale;
