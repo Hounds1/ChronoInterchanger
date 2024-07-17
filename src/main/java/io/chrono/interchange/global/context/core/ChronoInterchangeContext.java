@@ -1,7 +1,9 @@
 package io.chrono.interchange.global.context.core;
 
+import io.chrono.interchange.global.constant.ExchangeType;
 import io.chrono.interchange.global.constant.ExpressionUnit;
 import io.chrono.interchange.global.constant.Region;
+import io.chrono.interchange.global.context.configurer.condition.DefaultExchangeTypeConfigurer;
 import io.chrono.interchange.global.context.configurer.expression.ExpressionUnitConfigurer;
 import io.chrono.interchange.global.context.configurer.locale.AutoLocaleConfigurer;
 import io.chrono.interchange.global.context.configurer.region.RegionConfigurer;
@@ -13,6 +15,7 @@ public class ChronoInterchangeContext {
     private final RegionConfigurer regionConfigurer = new RegionConfigurer();
     private final ExpressionUnitConfigurer expressionUnitConfigurer = new ExpressionUnitConfigurer();
     private final AutoLocaleConfigurer autoLocaleConfigurer = new AutoLocaleConfigurer();
+    private final DefaultExchangeTypeConfigurer defaultExchangeTypeConfigurer = new DefaultExchangeTypeConfigurer();
 
     public ChronoInterchangeContext registerRegion(Consumer<RegionConfigurer> regionConfig) {
         regionConfig.accept(regionConfigurer);
@@ -29,6 +32,11 @@ public class ChronoInterchangeContext {
         return this;
     }
 
+    public ChronoInterchangeContext registerDefaultExchangeType(Consumer<DefaultExchangeTypeConfigurer> defaultExchangeTypeConfig) {
+        defaultExchangeTypeConfig.accept(defaultExchangeTypeConfigurer);
+        return this;
+    }
+
     public Region getRegion() {
         return regionConfigurer.getRegion();
     }
@@ -39,5 +47,9 @@ public class ChronoInterchangeContext {
 
     public boolean isUseAutoLocale() {
         return autoLocaleConfigurer.isUseAutoLocale();
+    }
+
+    public ExchangeType getExchangeType() {
+        return defaultExchangeTypeConfigurer.getDefaultExchangeType();
     }
 }

@@ -1,5 +1,6 @@
 package io.chrono.interchange.global.context.initializer;
 
+import io.chrono.interchange.global.constant.ExchangeType;
 import io.chrono.interchange.global.constant.ExpressionUnit;
 import io.chrono.interchange.global.constant.Region;
 import io.chrono.interchange.global.context.core.ChronoInterchangeContext;
@@ -10,11 +11,12 @@ import io.chrono.interchange.global.error.message.ChronoInterChangeErrorMessage;
 
 public class ChronoInterchangeInitializer {
 
-    public static void initialize(Region region, ExpressionUnit expressionUnit, boolean useAutoLocale) {
+    public static void initialize(Region region, ExpressionUnit expressionUnit, boolean useAutoLocale, ExchangeType exchangeType) {
         ChronoInterchangeContext context = new ChronoInterchangeContext()
                 .registerRegion(regionConfigurer -> regionConfigurer.setRegion(region))
                 .registerExpressionUnit(expressionUnitConfigurer -> expressionUnitConfigurer.setExpressionUnit(expressionUnit))
-                .activateLocale(autoLocaleConfigurer -> autoLocaleConfigurer.setUseAutoLocale(useAutoLocale));
+                .activateLocale(autoLocaleConfigurer -> autoLocaleConfigurer.setUseAutoLocale(useAutoLocale))
+                .registerDefaultExchangeType(defaultExchangeTypeConfigurer -> defaultExchangeTypeConfigurer.setDefaultExchangeType(exchangeType));
 
         ContextValidator contextValidator = new ContextValidator();
         if (!contextValidator.valid(context)) {

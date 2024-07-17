@@ -1,6 +1,6 @@
 package io.chrono.interchange.global.contract.changer;
 
-import io.chrono.interchange.core.constant.ExchangeType;
+import io.chrono.interchange.global.constant.ExchangeType;
 import io.chrono.interchange.global.constant.ExpressionUnit;
 import io.chrono.interchange.global.constant.Region;
 import io.chrono.interchange.global.context.core.ChronoInterchangeContext;
@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class CIAbstractChanger {
+public abstract class CIAbstractChanger {
 
     protected ChronoInterchangeContext context = ChronoInterchangeContextHolder.getContext();
 
@@ -31,7 +31,7 @@ public class CIAbstractChanger {
         ExpressionUnit expressionUnit = ExpressionUnit.valueOf(context.getRegion().name());
 
         if (exchangeType == null) {
-            return expressionUnit.getDateTimeFormat();
+            return expressionUnit.getDateTimeFormatWithSeconds();
         }
 
         switch (exchangeType) {
@@ -41,10 +41,21 @@ public class CIAbstractChanger {
             case TIME_ONLY -> {
                 return expressionUnit.getTimeFormat();
             }
-            default -> {
+            case TIME_WITH_SECOND -> {
+                return expressionUnit.getTimeFormatWithSeconds();
+            }
+            case DATE_AND_TIME -> {
                 return expressionUnit.getDateTimeFormat();
             }
+            default -> {
+                return expressionUnit.getDateTimeFormatWithSeconds();
+            }
         }
+    }
+
+    protected DateTimeFormatter getFormatter(@Nullable ExchangeType exchangeType) {
+        String format = getFormat(exchangeType);
+        return DateTimeFormatter.ofPattern(format);
     }
 
     protected String buildOffset() {
@@ -62,24 +73,28 @@ public class CIAbstractChanger {
         return builder.toString();
     }
 
-    protected boolean isDateFormat(@Nonnull String origin) {
+    protected boolean isNotDateFormat(@Nonnull String origin) {
         if (origin.isEmpty()) {
             throw new InvalidDateFormatException(ChronoInterChangeErrorMessage.INVALID_DATE_FORMAT.getMessage());
         }
 
-        AtomicBoolean result = new AtomicBoolean(false);
+        AtomicBoolean result = new AtomicBoolean(true);
 
         List<DateTimeFormatter> dateTimeFormatters = createDateTimeFormatters(context.getExpressionUnit());
-        dateTimeFormatters.forEach(formatter -> {
+        for (DateTimeFormatter formatter : dateTimeFormatters) {
             try {
                 formatter.parse(origin);
-                result.set(true);
-            } catch (DateTimeParseException e) {
                 result.set(false);
+                break;
+            } catch (DateTimeParseException e) {
             }
-        });
+        }
 
         return result.get();
+    }
+
+    protected ExchangeType resolveExchangeType() {
+        return context.getExchangeType().equals(ExchangeType.NONE) ? ExchangeType.DATE_AND_TIME_WITH_SECOND : context.getExchangeType();
     }
 
     private List<DateTimeFormatter> createDateTimeFormatters(ExpressionUnit expressionUnit) {
@@ -87,7 +102,9 @@ public class CIAbstractChanger {
 
         formatters.add(DateTimeFormatter.ofPattern(expressionUnit.getDateFormat()));
         formatters.add(DateTimeFormatter.ofPattern(expressionUnit.getTimeFormat()));
+        formatters.add(DateTimeFormatter.ofPattern(expressionUnit.getTimeFormatWithSeconds()));
         formatters.add(DateTimeFormatter.ofPattern(expressionUnit.getDateTimeFormat()));
+        formatters.add(DateTimeFormatter.ofPattern(expressionUnit.getDateTimeFormatWithSeconds()));
 
         return formatters;
     }
