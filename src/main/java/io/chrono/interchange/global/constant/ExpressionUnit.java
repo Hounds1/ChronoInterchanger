@@ -234,4 +234,14 @@ public enum ExpressionUnit {
     public String[] getAllExpressionArray() {
         return new String[] {timeFormat, timeFormatWithSeconds, dateFormat, dateTimeFormat, dateTimeFormatWithSeconds};
     }
+
+    public static ExpressionUnit exchange(String target) {
+        for (ExpressionUnit value : values()) {
+            if (value.name().equals(target)) {
+                return value;
+            }
+        }
+
+        return null;
+    }
 }

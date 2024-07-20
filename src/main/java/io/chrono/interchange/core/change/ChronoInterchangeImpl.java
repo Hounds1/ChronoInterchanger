@@ -2,7 +2,7 @@ package io.chrono.interchange.core.change;
 
 import io.chrono.interchange.core.utils.ChronoFormatAdjuster;
 import io.chrono.interchange.global.constant.ExchangeType;
-import io.chrono.interchange.global.contract.changer.CIAbstractChanger;
+import io.chrono.interchange.global.contract.interchange.CIAbstractInterchange;
 import io.chrono.interchange.global.error.exception.validation.InvalidDateFormatException;
 import io.chrono.interchange.global.error.message.ChronoInterChangeErrorMessage;
 import jakarta.annotation.Nonnull;
@@ -20,7 +20,7 @@ import java.time.format.DateTimeFormatter;
  * </span>
  */
 
-public class ChronoInterchangeImpl extends CIAbstractChanger implements ChronoInterchange {
+public class ChronoInterchangeImpl extends CIAbstractInterchange implements ChronoInterchange {
 
     private final ChronoFormatAdjuster adjuster;
 
