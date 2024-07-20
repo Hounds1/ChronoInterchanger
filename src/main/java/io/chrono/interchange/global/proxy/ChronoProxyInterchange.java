@@ -23,12 +23,16 @@ public class ChronoProxyInterchange implements InvocationHandler {
             for (int i = 0; i < args.length; i++) {
                 if (parameterTypes[i] == ExchangeType.class) {
                     if (args[i] == null || args[i].equals(ExchangeType.NONE)) {
-                        args[i] = defaultExchangeType.equals(ExchangeType.NONE) ? ExchangeType.DATE_AND_TIME_WITH_SECOND : defaultExchangeType;
+                        args[i] = defaultExchangeType;
                     }
                 }
             }
         }
 
-        return method.invoke(target, args);
+        Object result = method.invoke(target, args);
+
+        ChronoInterchangeContextHolder.clearContext();
+
+        return result;
     }
 }

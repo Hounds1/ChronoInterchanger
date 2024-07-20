@@ -226,4 +226,14 @@ public enum Region {
     public Locale getLocale() {
         return locale;
     }
+
+    public static Region exchange(String countryCode) {
+        for (Region region : values()) {
+            if (region.getLocale().getCountry().equals(countryCode)) {
+                return region;
+            }
+        }
+
+        return null;
+    }
 }

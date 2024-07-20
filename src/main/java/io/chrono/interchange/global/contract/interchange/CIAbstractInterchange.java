@@ -1,4 +1,4 @@
-package io.chrono.interchange.global.contract.changer;
+package io.chrono.interchange.global.contract.interchange;
 
 import io.chrono.interchange.global.constant.ExchangeType;
 import io.chrono.interchange.global.constant.ExpressionUnit;
@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public abstract class CIAbstractChanger {
+public abstract class CIAbstractInterchange {
 
     protected ChronoInterchangeContext context = ChronoInterchangeContextHolder.getContext();
 
